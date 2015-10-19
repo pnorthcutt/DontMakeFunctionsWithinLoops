@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+function test(){
+var elems = document.getElementsByClassName("myClass"), i;
+
+for (i = 0; i < elems.length; i++) {
+    elems[i].addEventListener("click", function () {
+        "use strict";
+        this.innerHTML = i;
+    });
+}
+}
+function test2(){
+var elems = document.getElementsByClassName("myClass"), i;
+
+for (i = 0; i < elems.length; i++) {
+    (function (iCopy) {
+        "use strict";
+        elems[i].addEventListener("click", function () {
+            this.innerHTML = iCopy;
+        });
+    }(i));
+}
+}
+function test3(){
+var elems = document.getElementsByClassName("myClass"), i;
+
+function makeClickHandler(i) {
+    "use strict";
+    return function () {
+        this.innerHTML = i;
+    };
+}
+
+for (i = 0; i < elems.length; i++) {
+    elems[i].addEventListener("click", makeClickHandler(i));
+}
+}
+
+</script>
+</head>
+<body >
+<button type="button" onclick="test()">Click Me!</button>
+<button type="button" onclick="test2()">Click Me!</button>
+<button type="button" onclick="test3()">Click Me!</button>
+	
+	<p><label class="myClass">hello world</label></p>
+	<p><label class="myClass">hello world</label></p>
+	<p><label class="myClass">hello world</label></p>
+<body>
+</html>
